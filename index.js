@@ -6,7 +6,7 @@ require('dotenv').config();
 const objectId = require('mongodb').ObjectId;
 
 
-const port = process.env.port || 5000;
+const port = process.env.PORT || 5000;
 
 
 //middleware
@@ -57,7 +57,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send('Hello to the World!')
+    res.send('Hello to the World tourism!')
 })
 
 app.listen(port, () => {
