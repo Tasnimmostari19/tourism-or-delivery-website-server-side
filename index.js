@@ -26,7 +26,7 @@ async function run() {
         const tripCollection = database.collection("trips");
 
 
-
+        //find all
         app.get('/trips', async (req, res) => {
             console.log(req.query);
             const cursor = tripCollection.find({});
@@ -34,7 +34,7 @@ async function run() {
             res.json(products)
         })
 
-
+        //find by id
         app.get('/trips/:id', async (req, res) => {
             const id = req.params.id;
             console.log('getting service', id);
@@ -44,6 +44,16 @@ async function run() {
         })
 
 
+        //insert one
+        app.post('/trips', async (req, res) => {
+
+            const newUser = req.body;
+            const result = await tripCollection.insertOne(newUser);
+
+            console.log('hitting the post', req.body);
+            console.log('got new use', result);
+            res.json(result);
+        });
 
 
 
