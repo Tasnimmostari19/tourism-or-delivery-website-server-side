@@ -66,15 +66,45 @@ async function run() {
         })
 
 
-        // get mytrip
-        // app.get('/bookings/:email', async (req, res) => {
-        //     const email = req.params.email;
-        //     console.log('getting service', email);
-        //     const query = { email: email };
-        //     const myTrip = await tripCollection.findOne(query);
-        //     res.json(mtTrip)
+        //manage all orders
+        app.get('/bookings', async (req, res) => {
+            console.log(req.query);
+            const cursor = bookingCollection.find({});
+            const products = await cursor.toArray();
+            res.json(products)
 
-        // })
+            //delete order
+
+            app.get('/bookings/:id', async (req, res) => {
+                const id = req.params.id;
+                console.log('getting service', id);
+                const query = { _id: objectId(id) };
+                const result = await bookingCollection.findOne(query);
+                res.json(result);
+            })
+
+            app.delete('/bookings/:id', async (req, res) => {
+                const id = req.params.id;
+                const query = { _id: objectId(id) };
+                const result = await bookingCollection.deleteOne(query);
+                console.log('deleting order', result);
+                res.json(result);
+            })
+        })
+
+
+
+        // get mytrip
+
+
+        app.get('/bookings/:email', async (req, res) => {
+            const queryEmail = req.params.email;
+            console.log('getting service', queryEmail);
+            const query = { email: queryEmail };
+            const myTrip = await tripCollection.findOne(query);
+            res.json(myTrip)
+
+        })
 
 
 
