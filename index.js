@@ -94,6 +94,24 @@ async function run() {
 
 
 
+        //manage all order update
+        app.put('/bookings/:id', async (req, res) => {
+            const id = req.params.id;
+
+            const filter = { _id: objectId(id) };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    status: `Approved`
+                },
+            };
+            const result = await bookingCollection.updateOne(filter, updateDoc, options);
+
+
+
+            console.log('updating user', req);
+            res.json(result);
+        });
 
 
 
