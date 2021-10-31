@@ -24,6 +24,7 @@ async function run() {
         await client.connect();
         const database = client.db("tourism");
         const tripCollection = database.collection("trips");
+        const bookingCollection = database.collection("bookings");
 
 
         //find all
@@ -50,10 +51,32 @@ async function run() {
             const newUser = req.body;
             const result = await tripCollection.insertOne(newUser);
 
-            console.log('hitting the post', req.body);
-            console.log('got new use', result);
+            console.log(req.body);
+            console.log(result);
             res.json(result);
         });
+
+
+        //add bookings
+        app.post('/bookings', async (req, res) => {
+            const booking = req.body;
+            const result = await bookingCollection.insertOne(booking);
+            console.log('booking', booking);
+            res.json(result);
+        })
+
+
+        // get mytrip
+        // app.get('/bookings/:email', async (req, res) => {
+        //     const email = req.params.email;
+        //     console.log('getting service', email);
+        //     const query = { email: email };
+        //     const myTrip = await tripCollection.findOne(query);
+        //     res.json(mtTrip)
+
+        // })
+
+
 
 
 
