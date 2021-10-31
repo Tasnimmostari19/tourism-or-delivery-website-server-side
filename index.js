@@ -94,17 +94,7 @@ async function run() {
 
 
 
-        // get mytrip
 
-
-        app.get('/bookings/:email', async (req, res) => {
-            const queryEmail = req.params.email;
-            console.log('getting service', queryEmail);
-            const query = { email: queryEmail };
-            const myTrip = await tripCollection.findOne(query);
-            res.json(myTrip)
-
-        })
 
 
 
